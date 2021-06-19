@@ -6,14 +6,22 @@ class UtilClass:
     This class gives some useful function for this game.
     To make the classses simple, we separated two classes.
 
-    Attributes:
-        num_win_seq (int): the number of sequence necessary for winning
-        win_reward (float): the reward agent gets when win the game
-        draw_penalty (float): the penalty agent gets when it draw the game
-        lose_penalty (float): the penalty agent gets when it lose the game
-        could_locate_reward (float): the additional reward for agent being able to put the stone
-        couldnt_locate_penalty (float): the penalty agent gets when it choose the location where the stone cannot be placed.
-        time_penalty (float): the penalty agents gets along with timesteps
+    Attributes
+    ----------
+    num_win_seq : int
+        the number of sequence necessary for winning
+    win_reward : float
+        the reward agent gets when win the game
+    draw_penalty : float
+        the penalty agent gets when it draw the game
+    lose_penalty : float
+        the penalty agent gets when it lose the game
+    could_locate_reward : float
+        the additional reward for agent being able to put the stone
+    couldnt_locate_penalty : float
+        the penalty agent gets when it choose the location where the stone cannot be placed.
+    time_penalty : float
+        the penalty agents gets along with timesteps
     """
     def __init__(
             self,
@@ -58,7 +66,7 @@ class UtilClass:
         reward = 0
         winner = 0
         # stepを実行した側（player_number側）は勝つ以外ありえない
-        if (done):
+        if done:
             # どちらのプレーヤーが勝利したかにかかわらず、勝利報酬を設定。resolve_placing内で石を置くことによって得た報酬を引いておく。
             reward = self.win_reward - self.could_locate_reward
             # 勝利プレーヤー
