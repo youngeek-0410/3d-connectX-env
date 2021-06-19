@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class UtilClass():
+class UtilClass:
     """Utility class
   This class gives some useful function for this game.
   To make the classses simple, we separated two classes.
@@ -44,13 +44,13 @@ class UtilClass():
         is_put = False
         couldnt_locate = False
         for height in range(self.num_grid):
-            if (board[height][wide][depth] == 0):  # 空いていたら置く
+            if board[height][wide][depth] == 0:  # 空いていたら置く
                 board[height][wide][depth] = player_number
                 reward = self.could_locate_reward
                 is_put = True
                 break
         # その柱(pile)が満杯で置けなかった場合。（height=0~self.num_grid-1 まで埋まっていた場合）
-        if (not is_put):
+        if not is_put:
             reward = -self.couldnt_locate_penalty
             couldnt_locate = True
 
@@ -66,7 +66,7 @@ class UtilClass():
             # 勝利プレーヤー
             winner = player_number
         # 全てのマスが非ゼロにもかかわらず、doneになっていない場合（引き分けの場合）
-        elif (not (0 in np.array(board).flatten())):
+        elif not (0 in np.array(board).flatten()):
             done = True
             # 引き分けによって課せられる罰。resolve_placing内で石を置くことによって得た報酬を引いておく。
             reward = -self.draw_penalty - self.could_locate_reward
@@ -100,11 +100,11 @@ class UtilClass():
                     for each_cube in cube_list:
                         for plane in each_cube:
                             # 2次元平面上でビンゴしていないか確認
-                            if (self.is_end_on_2d_plane(plane)):
+                            if self.is_end_on_2d_plane(plane):
                                 return True
 
                     # 立体的な斜め
-                    if (self.is_diag_on_3d_cube(each_cube)):
+                    if self.is_diag_on_3d_cube(each_cube):
                         return True
 
         return False
@@ -116,11 +116,11 @@ class UtilClass():
         # 行・列
         for plane in [org_plane, org_plane.T]:
             for row in plane:
-                if (all(row == self.WIN_A) or all(row == self.WIN_B)):
+                if all(row == self.WIN_A) or all(row == self.WIN_B):
                     return True
 
         # 斜め
-        if (abs(np.trace(org_plane)) == self.num_win_seq or abs(np.trace(np.fliplr(org_plane))) == self.num_win_seq):
+        if abs(np.trace(org_plane)) == self.num_win_seq or abs(np.trace(np.fliplr(org_plane))) == self.num_win_seq:
             return True
 
         return False
@@ -136,7 +136,7 @@ class UtilClass():
             for f in range(self.num_win_seq):
                 for a in range(self.num_win_seq):
                     for b in range(self.num_win_seq):
-                        if (f == a and a == b and f == b):
+                        if f == a and a == b and f == b:
                             oblique_elements = np.append(oblique_elements, cube[f][a][b])
 
             if (all(oblique_elements == np.full(self.num_win_seq, 1)) or all(
@@ -147,7 +147,7 @@ class UtilClass():
 
     # 入力をbaseで指定した進数に変換。返り値が文字列になっていることに注意。
     def base_change(self, value, base):
-        if (int(value / base)):
+        if int(value / base):
             return self.base_change(int(value / base), base) + str(value % base)
         return str(value % base)
 
