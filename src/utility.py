@@ -139,6 +139,19 @@ class UtilClass:
         return done, reward, winner
 
     def is_done(self, cube):
+        """
+        is_done
+
+        Parameters
+        ----------
+        cube :
+
+
+        Returns
+        -------
+        is_done : bool
+
+        """
         cube = np.array(cube)
         num_stride = self.num_grid - self.num_win_seq + 1
 
