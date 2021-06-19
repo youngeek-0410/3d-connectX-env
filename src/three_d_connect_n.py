@@ -1,6 +1,9 @@
 import gym
 import torch
 import pandas as pd
+import plotly.express as px
+from IPython.display import clear_output
+
 from .utility import UtilClass
 
 
@@ -26,18 +29,8 @@ class AnyNumberInARow3dEnv(gym.Env):
     utils (UtilClass):
     """
 
-    def __init__(
-            self,
-            num_grid=4,
-            num_win_seq=4,
-            win_reward=10,
-            draw_penalty=5,
-            lose_penalty=10,
-            could_locate_reward=0.1,
-            couldnt_locate_penalty=0.1,
-            time_penalty=0.1,
-            first_player=1
-    ):
+    def __init__(self, num_grid=4, num_win_seq=4, win_reward=10, draw_penalty=5, lose_penalty=10,
+                 could_locate_reward=0.1, couldnt_locate_penalty=0.1, time_penalty=0.1, first_player=1):
         super().__init__()
 
         self.num_grid = num_grid
@@ -130,16 +123,16 @@ class AnyNumberInARow3dEnv(gym.Env):
         info = {"turn": self.player, "winner": winner, "is_couldnt_locate": is_couldnt_locate}
 
         # プレーヤーの交代(置けない場所に置いていた場合は、プレーヤーは交代しない)
-        if (not is_couldnt_locate):
+        if not is_couldnt_locate:
             self.player *= -1
 
         return torch.tensor(self.board).float(), reward + fixment_reward, done, info
 
     def render(self, mode="print", isClear=False):
-        if (isClear):
+        if isClear:
             output.clear()  # 出力の消去
 
-        if (mode == "print"):
+        if mode == "print":
             i = 0
             for square in self.board:
                 print("{}F".format(i))
@@ -147,7 +140,7 @@ class AnyNumberInARow3dEnv(gym.Env):
                     print(line)
                 i += 1
 
-        elif (mode == "plot"):
+        elif mode == "plot":
             data = pd.DataFrame(index=[], columns=["W", "D", "H", "Player"])
             index = 0
             for i in range(self.num_grid):
