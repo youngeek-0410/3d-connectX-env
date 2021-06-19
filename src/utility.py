@@ -99,6 +99,27 @@ class UtilClass:
         return reward, board, couldnt_locate
 
     def resolve_winning(self, done, player_number, board):
+        """
+        resolove_winning
+
+        Parameters
+        ----------
+        done : bool
+
+        player_number : int
+
+        board :
+
+
+        Returns
+        -------
+        done : bool
+
+        reward :
+
+        winner : int
+
+        """
         reward = 0
         winner = 0
         # stepを実行した側（player_number側）は勝つ以外ありえない
