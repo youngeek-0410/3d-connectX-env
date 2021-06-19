@@ -249,11 +249,43 @@ class UtilClass:
 
     # 入力をbaseで指定した進数に変換。返り値が文字列になっていることに注意。
     def base_change(self, value, base):
-        if int(value / base):
-            return self.base_change(int(value / base), base) + str(value % base)
+        """
+        Convert the input to the decimal number specified by base.
+
+        Parameters
+        ----------
+        value :
+
+        base :
+
+
+        Return
+        ------
+        base_change : str
+
+        """
+        if value // base:
+            return self.base_change(value // base, base) + str(value % base)
         return str(value % base)
 
     def is_game_end(self, player_number, board):
+        """
+        Parameters
+        ----------
+        player_number :
+
+        board :
+
+
+        Returns
+        -------
+        is_end :
+
+        reward :
+
+        winner :
+
+        """
         done = self.is_done(board)
         is_end, reward, winner = self.resolve_winning(done, player_number, board)
 
