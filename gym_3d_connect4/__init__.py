@@ -1,3 +1,6 @@
-from gym_3d_connect4 import three_d_connect_n
+from gym.envs.registration import register
 
-AnyNumberInARow3dEnv = three_d_connect_n.AnyNumberInARow3dEnv
+register(
+    id='3d-connect4-v0',
+    entry_point='gym_3d_connect4.env:AnyNumberInARow3dEnv'
+)
