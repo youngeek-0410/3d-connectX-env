@@ -23,17 +23,17 @@ class UtilClass:
     time_penalty : float
         the penalty agents gets along with timesteps
     """
-    def __init__(
-            self,
-            num_grid,
-            num_win_seq,
-            win_reward,
-            draw_penalty,
-            lose_penalty,  # 未使用
-            could_locate_reward,
-            couldnt_locate_penalty,
-            time_penalty  # 未使用
-    ):
+
+    def __init__(self,
+                 num_grid,
+                 num_win_seq,
+                 win_reward,
+                 draw_penalty,
+                 lose_penalty,  # 未使用
+                 could_locate_reward,
+                 couldnt_locate_penalty,
+                 time_penalty  # 未使用
+                 ):
         self.num_grid = num_grid
         self.num_win_seq = num_win_seq
         self.win_reward = win_reward
