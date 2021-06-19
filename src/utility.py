@@ -31,13 +31,21 @@ class UtilClass:
         Parameters
         ----------
         num_grid :
+
         num_win_seq :
+
         win_reward :
+
         draw_penalty :
+
         lose_penalty :
+
         could_locate_reward :
+
         couldnt_locate_penalty :
+
         time_penalty :
+
         """
         self.num_grid = num_grid
         self.num_win_seq = num_win_seq
@@ -52,6 +60,29 @@ class UtilClass:
         self.WIN_B = np.full(num_win_seq, -1)
 
     def resolve_placing(self, wide, depth, player_number, board):
+        """
+        resolove_placing
+
+        Parameters
+        ----------
+        wide :
+
+        depth :
+
+        player_number :
+
+        board :
+
+
+        Returns
+        -------
+        reward :
+
+        board :
+
+        couldnt_locate : bool
+
+        """
         is_put = False
         couldnt_locate = False
         for height in range(self.num_grid):
