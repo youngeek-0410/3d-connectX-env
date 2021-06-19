@@ -2,35 +2,51 @@ import gym
 import torch
 import pandas as pd
 import plotly.express as px
-from IPython.display import clear_output
 
 from .utility import UtilClass
 
 
 class AnyNumberInARow3dEnv(gym.Env):
     """
-    the extended implementation of Five in a Row (Any Number in a Row) environment in manner of OpenAI gym
-    Five in a Row is one of the most famous traditional board games in Japan.
-    The rule of this game is simple.
-        1. Two players puts the Go pieces (black & white stones) alternately on an empty intersection
-        2. The winner is the first player to form an unbroken chain of five stones horizontally, vertically, or diagonally
-    We extended this game to in two ways.
+    the extended implementation of Five in a Row (Any Number in a Row) environment in manner of OpenAI gym Five in a
+    Row is one of the most famous traditional board games in Japan. The rule of this game is simple.
+    1. Two players puts the Go pieces (black & white stones) alternately on an empty intersection
+    2. The winner is the first player to form an unbroken chain of five stones horizontally,
+    vertically, or diagonally We extended this game to in two ways.
     First, we added another dimention to the board (2D to 3D).
-    Second, we extended the required number for winning (five) to hyperparameter, which means programmers can set that number at their will.
-    So, we can call the extended style game "Any Number in a Row"
+    Second, we extended the required number for winning (five) to hyperparameter,
+    which means programmers can set that number at their will. So, we can call the
+    extended style game "Any Number in a Row"
 
     This class gives "Any Number in a Row" environment following OpenAI Gym interface.
 
-    Attributes:
-    num_grid (int): the number of intersections in a board
-    action_space (gym.spaces):
-    observation_space (gym.spaces):
-    player (int):
-    utils (UtilClass):
+    Attributes
+    ----------
+    num_grid : int
+        the number of intersections in a board
+    action_space : gym.spaces
+
+    observation_space : gym.spaces
+    player : int
+
+    utils : UtilClass
+
     """
 
     def __init__(self, num_grid=4, num_win_seq=4, win_reward=10, draw_penalty=5, lose_penalty=10,
                  could_locate_reward=0.1, couldnt_locate_penalty=0.1, time_penalty=0.1, first_player=1):
+        """
+
+        :param num_grid:
+        :param num_win_seq:
+        :param win_reward:
+        :param draw_penalty:
+        :param lose_penalty:
+        :param could_locate_reward:
+        :param couldnt_locate_penalty:
+        :param time_penalty:
+        :param first_player:
+        """
         super().__init__()
 
         self.num_grid = num_grid
