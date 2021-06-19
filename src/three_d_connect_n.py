@@ -67,36 +67,36 @@ class AnyNumberInARow3dEnv(gym.Env):
         self.reset()
 
     def reset(self):
-        """reset the board
+        """
+        reset the board
 
-    Reset the board to the initial state.
+        Reset the board to the initial state.
 
-    Returns:
+        Returns:
         torch.Tensor: the initial board tensor filled with 0 (0 means empty, 1 or -1 means the stone is put)
-
-    """
+        """
         self.board = [[[0] * self.num_grid for _ in range(self.num_grid)] for _ in range(self.num_grid)]
         return torch.tensor(self.board).float()
 
     def step(self, action):
-        """OpenAI gym style step function
+        """
+        OpenAI gym style step function
 
-    Receive the action and make transition.
+        Receive the action and make transition.
 
-    Args:
+        Args:
         action (int): selected aciton number (range from 0 to self.num_grid**2)
 
-    Returns:
+        Returns:
         (tuple): tuple containing:
-          obs (torch.Tensor): the observation agents get after the transition
-          reward (float): the total reward agents get through the transition
-          done (bool): the flag of whether the episode has finished or not
-          info (dict): a dictionary containing the following information
-            "turn": turn-player ID,
-            "winner": winner-player ID,
-            "is_could_locate": whether the stone could be placed or not
-
-    """
+        obs (torch.Tensor): the observation agents get after the transition
+        reward (float): the total reward agents get through the transition
+        done (bool): the flag of whether the episode has finished or not
+        info (dict): a dictionary containing the following information
+        "turn": turn-player ID,
+        "winner": winner-player ID,
+        is_could_locate": whether the stone could be placed or not
+        """
         # 1~self.num_grid**2 の数値で表される action を、「升目のどの位置か」と言う情報に変換
         action = self.utils.base_change(action, self.num_grid).zfill(2)
 
