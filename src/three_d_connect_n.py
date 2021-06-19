@@ -27,6 +27,7 @@ class AnyNumberInARow3dEnv(gym.Env):
     action_space : gym.spaces
 
     observation_space : gym.spaces
+
     player : int
 
     utils : UtilClass
@@ -160,6 +161,16 @@ class AnyNumberInARow3dEnv(gym.Env):
         return torch.tensor(self.board).float(), reward + fixment_reward, done, info
 
     def render(self, mode="print", isClear=False):
+        """
+        render
+
+        Parameters
+        ----------
+        mode : str
+
+        isClear : bool
+
+        """
         if isClear:
             output.clear()  # 出力の消去
 
@@ -189,6 +200,14 @@ class AnyNumberInARow3dEnv(gym.Env):
 
     # 色が透明にならない問題あり
     def animation(self, obs_history):
+        """
+        animation
+
+        Parameter
+        ---------
+        obs_history :
+
+        """
         data = pd.DataFrame(index=[], columns=["W", "D", "H", "Player", "frame"])
         index = 0
         dict_int_player = {0: "no one", 1: "A", -1: "B"}
@@ -210,9 +229,34 @@ class AnyNumberInARow3dEnv(gym.Env):
 
 
 class Conv3dObsWrapper(gym.ObservationWrapper):
+    """
+    Conv3dObsWrapper
+
+    Attribute
+    ---------
+    observation_space :
+
+    """
     def __init__(self, env):
+        """
+        Parameter
+        ---------
+        env :
+
+        """
         super().__init__(env)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(1, self.num_grid, self.num_grid, self.num_grid))
 
     def observation(self, obs):
+        """
+        observation
+
+        Parameter
+        ---------
+        obs :
+
+        Return
+        ------
+
+        """
         return torch.unsqueeze(obs, 0)
