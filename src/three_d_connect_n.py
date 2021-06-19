@@ -36,16 +36,26 @@ class AnyNumberInARow3dEnv(gym.Env):
     def __init__(self, num_grid=4, num_win_seq=4, win_reward=10, draw_penalty=5, lose_penalty=10,
                  could_locate_reward=0.1, couldnt_locate_penalty=0.1, time_penalty=0.1, first_player=1):
         """
+        Parameters
+        ----------
+        num_grid : int
 
-        :param num_grid:
-        :param num_win_seq:
-        :param win_reward:
-        :param draw_penalty:
-        :param lose_penalty:
-        :param could_locate_reward:
-        :param couldnt_locate_penalty:
-        :param time_penalty:
-        :param first_player:
+        num_win_seq : int
+
+        win_reward : int
+
+        draw_penalty : int
+
+        lose_penalty : int
+
+        could_locate_reward : float
+
+        couldnt_locate_penalty : float
+
+        time_penalty : float
+
+        first_player : int
+
         """
         super().__init__()
 
