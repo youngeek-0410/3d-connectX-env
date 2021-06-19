@@ -147,8 +147,8 @@ class UtilClass:
         cube :
 
 
-        Returns
-        -------
+        Return
+        ------
         is_done : bool
 
         """
@@ -187,6 +187,18 @@ class UtilClass:
 
     # N×Nの2次元配列上でN個玉が並んでいるところがあるかを判定する関数。（ビンゴの判定みたいなもの）
     def is_end_on_2d_plane(self, org_plane):
+        """
+        Determine if there are N balls lined up in an N x N two-dimensional array.
+
+        Parameters
+        ----------
+        org_plane :
+
+        Return
+        ------
+        is_end_on_2d_plane : bool
+
+        """
         assert org_plane.shape == (self.num_win_seq, self.num_win_seq)
 
         # 行・列
@@ -203,6 +215,20 @@ class UtilClass:
 
     # N×N×Nの3次元配列上で、N個の玉が立体対角上に並んでいるかどうかを判定する関数。
     def is_diag_on_3d_cube(self, org_cube):
+        """
+        Determine whether or not N balls are lined up on the three-dimensional array of N x N x N
+        on the three-dimensional diagonal.
+
+        Parameters
+        ----------
+        org_cube :
+
+
+        Return
+        ------
+        is_diag_on_3d_cube : bool
+
+        """
         assert org_cube.shape == (self.num_win_seq, self.num_win_seq, self.num_win_seq)
 
         for cube in [org_cube, np.rot90(org_cube, axes=(1, 2)), np.rot90(org_cube, axes=(0, 1)),
