@@ -65,12 +65,12 @@ class UtilClass:
 
         Parameters
         ----------
-        wide :
-
-        depth :
-
-        player_number :
-
+        wide : int
+            The horizontal coordinates specified by action.
+        depth : int
+            The vertical coordinate specified by action.
+        player_number : int
+            The first player's number is 1, and the next is -1.
         board :
 
 
@@ -107,7 +107,7 @@ class UtilClass:
         done : bool
 
         player_number : int
-
+            The first player's number is 1, and the next is -1.
         board :
 
 
