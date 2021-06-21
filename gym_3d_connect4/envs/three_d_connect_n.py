@@ -86,8 +86,6 @@ class AnyNumberInARow3dEnv(gym.Env):
 
     def reset(self):
         """
-        reset the board
-
         Reset the board to the initial state.
 
         Returns
