@@ -23,7 +23,7 @@ class AnyNumberInARow3dEnv(gym.Env):
     Attributes
     ----------
     num_grid : int
-        the number of intersections in a board
+        The number of intersections in a board.
     action_space : gym.spaces
 
     observation_space : gym.spaces
@@ -31,7 +31,7 @@ class AnyNumberInARow3dEnv(gym.Env):
     player : int
 
     utils : UtilClass
-
+h
     """
 
     def __init__(self, num_grid=4, num_win_seq=4, win_reward=10, draw_penalty=5, lose_penalty=10,
@@ -40,23 +40,23 @@ class AnyNumberInARow3dEnv(gym.Env):
         Parameters
         ----------
         num_grid : int
-            length of a side.
+            Length of a side.
         num_win_seq : int
-            the number of sequence necessary for winning
+            The number of sequence necessary for winning.
         win_reward : float
-            the reward agent gets when win the game
+            The reward agent gets when win the game.
         draw_penalty : float
-            the penalty agent gets when it draw the game
+            The penalty agent gets when it draw the game.
         lose_penalty : float
-            the penalty agent gets when it lose the game
+            The penalty agent gets when it lose the game.
         could_locate_reward : float
-            the additional reward for agent being able to put the stone
+            The additional reward for agent being able to put the stone.
         couldnt_locate_penalty : float
-            the penalty agent gets when it choose the location where the stone cannot be placed.
+            The penalty agent gets when it choose the location where the stone cannot be placed.
         time_penalty : float
-            the penalty agents gets along with timesteps
+            The penalty agents gets along with timesteps.
         first_player : int
-            Define which is the first player
+            Define which is the first player.
         """
         super().__init__()
 
@@ -95,7 +95,7 @@ class AnyNumberInARow3dEnv(gym.Env):
         Returns
         -------
         reset : torch.Tensor
-            the initial board tensor filled with 0 (0 means empty, 1 or -1 means the stone is put)
+            The initial board tensor filled with 0 (0 means empty, 1 or -1 means the stone is put).
         """
         self.board = [[[0] * self.num_grid for _ in range(self.num_grid)] for _ in range(self.num_grid)]
         return torch.tensor(self.board).float()
@@ -109,18 +109,18 @@ class AnyNumberInARow3dEnv(gym.Env):
         Parameter
         ---------
         action : int
-            elected aciton number (range from 0 to self.num_grid**2)
+            Elected aciton number (range from 0 to self.num_grid**2).
 
         Returns
         -------
         obs : torch.Tensor
-            the observation agents get after the transition
+            The observation agents get after the transition.
         reward : float
-            the total reward agents get through the transition
+            The total reward agents get through the transition.
         done : bool
-            the flag of whether the episode has finished or not
+            The flag of whether the episode has finished or not.
         info : dict
-            a dictionary containing the following information
+            A dictionary containing the following information.
         """
         # 1~self.num_grid**2 の数値で表される action を、「升目のどの位置か」と言う情報に変換
         action = self.utils.base_change(action, self.num_grid).zfill(2)
