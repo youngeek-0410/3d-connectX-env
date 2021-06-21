@@ -30,22 +30,22 @@ class UtilClass:
         """
         Parameters
         ----------
-        num_grid :
-
-        num_win_seq :
-
-        win_reward :
-
-        draw_penalty :
-
-        lose_penalty :
-
-        could_locate_reward :
-
-        couldnt_locate_penalty :
-
-        time_penalty :
-
+        num_grid : int
+            length of a side.
+        num_win_seq : int
+            the number of sequence necessary for winning
+        win_reward : float
+            the reward agent gets when win the game
+        draw_penalty : float
+            the penalty agent gets when it draw the game
+        lose_penalty : float
+            the penalty agent gets when it lose the game
+        could_locate_reward : float
+            the additional reward for agent being able to put the stone
+        couldnt_locate_penalty : float
+            the penalty agent gets when it choose the location where the stone cannot be placed.
+        time_penalty : float
+            the penalty agents gets along with timesteps
         """
         self.num_grid = num_grid
         self.num_win_seq = num_win_seq
