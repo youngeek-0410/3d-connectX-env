@@ -25,13 +25,13 @@ class AnyNumberInARow3dEnv(gym.Env):
     num_grid : int
         The number of intersections in a board.
     action_space : gym.spaces
-
+        Define an NxN discrete action space.
     observation_space : gym.spaces
-
+        Define an N x N x N discrete space with three values (-1, 0, 1).
     player : int
-
+        Define which is the first player.
     utils : UtilClass
-h
+        Utility class implemented in utility.py.
     """
 
     def __init__(self, num_grid=4, num_win_seq=4, win_reward=10, draw_penalty=5, lose_penalty=10,
@@ -62,16 +62,14 @@ h
 
         self.num_grid = num_grid
 
-        # 行動空間(action)を定義。今回は重力がある設定（高さ方向は石を置く位置を指定できない）ので、N×Nの離散空間。
+        # 重力がある設定（高さ方向は石を置く位置を指定できない）ので、N×Nの離散空間。
         self.action_space = gym.spaces.Discrete(self.num_grid * self.num_grid)
-        # 観測空間(state)を定義。今回は自分の色の石が置かれている状態、石の置かれていない状態、相手プレイヤーの石が置かれている状態の3つをそれぞれ-1,0,1の値で表す。
-        # 従って、-1, 0, 1の3値をとるN×N×Nの離散空間。
+        # 自分の色の石が置かれている状態、石の置かれていない状態、相手プレイヤーの石が置かれている状態の3つをそれぞれ-1,0,1の値で表す。
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(self.num_grid, self.num_grid, self.num_grid))
 
-        # 最初のプレーヤーがどちらかを定義
         self.player = first_player
 
-        # 上記で実装したユーティリティクラスの委譲。（継承すると必要以上に依存してしまうため、避けた）
+        # 継承すると必要以上に依存してしまうため、避けている。
         self.utils = UtilClass(
             num_grid=num_grid,
             num_win_seq=num_win_seq,

@@ -110,7 +110,7 @@ class UtilClass:
         Parameters
         ----------
         done : bool
-            The flag when the game is finished.
+            The flag of whether the episode has finished or not.
         player_number : int
             The first player's number is 1, and the next is -1.
         board :
@@ -119,7 +119,7 @@ class UtilClass:
         Returns
         -------
         done : bool
-            The flag when the game is finished.
+            The flag of whether the episode has finished or not.
         reward : float
             The total reward agents get through the transition.
         winner : int
@@ -258,7 +258,7 @@ class UtilClass:
         value : int
             The action expressed as a number between 1 ~ self.num_grid ** 2.
         base : int
-
+            Specifies the decimal value to be converted.
 
         Return
         ------
@@ -281,7 +281,7 @@ class UtilClass:
         Returns
         -------
         is_end : bool
-            The flag when the game is finished.
+            The flag of whether the episode has finished or not.
         reward : float
             The total reward agents get through the transition.
         winner : int
