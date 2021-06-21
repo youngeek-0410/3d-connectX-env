@@ -23,7 +23,10 @@ class UtilClass:
         the penalty agent gets when it choose the location where the stone cannot be placed.
     time_penalty : float
         the penalty agents gets along with timesteps
-
+    WIN_A : ndarray
+            Player A's judgment constant.
+    WIN_B : ndarray
+        Player B's judgment constant.
     """
 
     def __init__(self, num_grid, num_win_seq, win_reward, draw_penalty, lose_penalty,
@@ -47,10 +50,6 @@ class UtilClass:
             the penalty agent gets when it choose the location where the stone cannot be placed.
         time_penalty : float
             the penalty agents gets along with timesteps
-        WIN_A : ndarray
-            Player A's judgment constant.
-        WIN_B : ndarray
-            Player B's judgment constant.
         """
         self.num_grid = num_grid
         self.num_win_seq = num_win_seq
