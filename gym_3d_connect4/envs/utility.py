@@ -76,8 +76,8 @@ class UtilClass:
 
         Returns
         -------
-        reward :
-
+        reward : float
+            the total reward agents get through the transition.
         board :
 
         couldnt_locate : bool
@@ -115,8 +115,8 @@ class UtilClass:
         -------
         done : bool
 
-        reward :
-
+        reward : float
+            the total reward agents get through the transition.
         winner : int
 
         """
@@ -281,8 +281,8 @@ class UtilClass:
         -------
         is_end :
 
-        reward :
-
+        reward : float
+            the total reward agents get through the transition.
         winner :
 
         """
