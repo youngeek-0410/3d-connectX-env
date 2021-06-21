@@ -108,7 +108,7 @@ class UtilClass:
         Parameters
         ----------
         done : bool
-
+            The side that executed the step (player_number side).
         player_number : int
             The first player's number is 1, and the next is -1.
         board :
@@ -257,15 +257,15 @@ class UtilClass:
 
         Parameters
         ----------
-        value :
-
-        base :
+        value : int
+            The action expressed as a number between 1 ~ self.num_grid ** 2.
+        base : int
 
 
         Return
         ------
         base_change : str
-
+            A string that converts the input to the decimal number specified by base.
         """
         if value // base:
             return self.base_change(value // base, base) + str(value % base)
@@ -275,8 +275,8 @@ class UtilClass:
         """
         Parameters
         ----------
-        player_number :
-
+        player_number : int
+            The first player's number is 1, and the next is -1.
         board :
 
 
