@@ -160,14 +160,14 @@ class AnyNumberInARow3dEnv(gym.Env):
 
     def render(self, mode="print", isClear=False):
         """
-        render
+        The function to draw the current state according to mode.
 
         Parameters
         ----------
         mode : str
-
+            The flag to determine the content to be drawn.
         isClear : bool
-
+            The flag to clear the output.
         """
         if isClear:
             output.clear()  # 出力の消去
@@ -228,7 +228,7 @@ class AnyNumberInARow3dEnv(gym.Env):
 
 class Conv3dObsWrapper(gym.ObservationWrapper):
     """
-    Conv3dObsWrapper
+    Define the wrapper class when using Conv3d.
 
     Attribute
     ---------

@@ -107,7 +107,7 @@ class UtilClass:
 
     def resolve_winning(self, done, player_number, board):
         """
-        resolove_winning
+        Return the reward and winner information based on the game result.
 
         Parameters
         ----------
@@ -146,17 +146,17 @@ class UtilClass:
 
     def is_done(self, cube):
         """
-        is_done
+        Judges the end of the game based on the current state of the board.
 
         Parameters
         ----------
-        cube :
-
+        cube : list[list[list[int]]]
+            A three-dimensional array representing the current state.
 
         Return
         ------
-        is_done : bool
-
+        done : bool
+            The flag of whether the episode has finished or not.
         """
         cube = np.array(cube)
         num_stride = self.num_grid - self.num_win_seq + 1
@@ -197,12 +197,12 @@ class UtilClass:
 
         Parameters
         ----------
-        org_plane :
+        org_plane : ndarray
 
         Return
         ------
         is_end_on_2d_plane : bool
-
+            The flag whether a row is aligned on a plane.
         """
         assert org_plane.shape == (self.num_win_seq, self.num_win_seq)
 
@@ -225,13 +225,13 @@ class UtilClass:
 
         Parameters
         ----------
-        org_cube :
+        org_cube : ndarray
 
 
         Return
         ------
         is_diag_on_3d_cube : bool
-
+            The flag whether a row is aligned on a 3D object.
         """
         assert org_cube.shape == (self.num_win_seq, self.num_win_seq, self.num_win_seq)
 
