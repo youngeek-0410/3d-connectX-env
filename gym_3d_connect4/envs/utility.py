@@ -9,22 +9,24 @@ class UtilClass:
 
     Attributes
     ----------
+    num_grid : int
+        Length of a side.
     num_win_seq : int
-        the number of sequence necessary for winning
+        The number of sequence necessary for winning.
     win_reward : float
-        the reward agent gets when win the game
+        The reward agent gets when win the game.
     draw_penalty : float
-        the penalty agent gets when it draw the game
+        The penalty agent gets when it draw the game.
     lose_penalty : float
-        the penalty agent gets when it lose the game
+        The penalty agent gets when it lose the game.
     could_locate_reward : float
-        the additional reward for agent being able to put the stone
+        The additional reward for agent being able to put the stone.
     couldnt_locate_penalty : float
-        the penalty agent gets when it choose the location where the stone cannot be placed.
+        The penalty agent gets when it choose the location where the stone cannot be placed.
     time_penalty : float
-        the penalty agents gets along with timesteps
+        The penalty agents gets along with timesteps.
     WIN_A : ndarray
-            Player A's judgment constant.
+        Player A's judgment constant.
     WIN_B : ndarray
         Player B's judgment constant.
     """
@@ -35,21 +37,21 @@ class UtilClass:
         Parameters
         ----------
         num_grid : int
-            length of a side.
+            Length of a side.
         num_win_seq : int
-            the number of sequence necessary for winning
+            The number of sequence necessary for winning.
         win_reward : float
-            the reward agent gets when win the game
+            The reward agent gets when win the game.
         draw_penalty : float
-            the penalty agent gets when it draw the game
+            The penalty agent gets when it draw the game.
         lose_penalty : float
-            the penalty agent gets when it lose the game
+            The penalty agent gets when it lose the game.
         could_locate_reward : float
-            the additional reward for agent being able to put the stone
+            The additional reward for agent being able to put the stone.
         couldnt_locate_penalty : float
-            the penalty agent gets when it choose the location where the stone cannot be placed.
+            The penalty agent gets when it choose the location where the stone cannot be placed.
         time_penalty : float
-            the penalty agents gets along with timesteps
+            The penalty agents gets along with timesteps.
         """
         self.num_grid = num_grid
         self.num_win_seq = num_win_seq
@@ -80,11 +82,11 @@ class UtilClass:
         Returns
         -------
         reward : float
-            the total reward agents get through the transition.
+            The total reward agents get through the transition.
         board :
 
         couldnt_locate : bool
-
+            The flag that is true when it cannot be placed.
         """
         is_put = False
         couldnt_locate = False
@@ -108,7 +110,7 @@ class UtilClass:
         Parameters
         ----------
         done : bool
-            The side that executed the step (player_number side).
+            The flag when the game is finished.
         player_number : int
             The first player's number is 1, and the next is -1.
         board :
@@ -117,11 +119,11 @@ class UtilClass:
         Returns
         -------
         done : bool
-
+            The flag when the game is finished.
         reward : float
-            the total reward agents get through the transition.
+            The total reward agents get through the transition.
         winner : int
-
+            The player number of the winning side.
         """
         reward = 0
         winner = 0
@@ -129,7 +131,6 @@ class UtilClass:
         if done:
             # どちらのプレーヤーが勝利したかにかかわらず、勝利報酬を設定。resolve_placing内で石を置くことによって得た報酬を引いておく。
             reward = self.win_reward - self.could_locate_reward
-            # 勝利プレーヤー
             winner = player_number
         # 全てのマスが非ゼロにもかかわらず、doneになっていない場合（引き分けの場合）
         elif not (0 in np.array(board).flatten()):
@@ -188,7 +189,6 @@ class UtilClass:
 
         return False
 
-    # N×Nの2次元配列上でN個玉が並んでいるところがあるかを判定する関数。（ビンゴの判定みたいなもの）
     def is_end_on_2d_plane(self, org_plane):
         """
         Determine if there are N balls lined up in an N x N two-dimensional array.
@@ -216,7 +216,6 @@ class UtilClass:
 
         return False
 
-    # N×N×Nの3次元配列上で、N個の玉が立体対角上に並んでいるかどうかを判定する関数。
     def is_diag_on_3d_cube(self, org_cube):
         """
         Determine whether or not N balls are lined up on the three-dimensional array of N x N x N
@@ -250,7 +249,6 @@ class UtilClass:
 
         return False
 
-    # 入力をbaseで指定した進数に変換。返り値が文字列になっていることに注意。
     def base_change(self, value, base):
         """
         Convert the input to the decimal number specified by base.
@@ -282,12 +280,12 @@ class UtilClass:
 
         Returns
         -------
-        is_end :
-
+        is_end : bool
+            The flag when the game is finished.
         reward : float
-            the total reward agents get through the transition.
-        winner :
-
+            The total reward agents get through the transition.
+        winner : int
+            The player number of the winning side.
         """
         done = self.is_done(board)
         is_end, reward, winner = self.resolve_winning(done, player_number, board)
