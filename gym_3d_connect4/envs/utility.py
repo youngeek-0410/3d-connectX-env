@@ -66,7 +66,9 @@ class UtilClass:
 
     def resolve_placing(self, wide, depth, player_number, board):
         """
-        resolove_placing
+        Places a stone and returns the next state.
+        It also returns additional information (and an adjustment reward) based on whether
+        or not the user has selected a location where the stone can be placed.
 
         Parameters
         ----------
@@ -271,6 +273,9 @@ class UtilClass:
 
     def is_game_end(self, player_number, board):
         """
+        Judges the end of the game based on the current state of the board,
+        and returns the reward and winner information according to the result of the game.
+
         Parameters
         ----------
         player_number : int

@@ -8,15 +8,15 @@ from gym_3d_connect4.envs.utility import UtilClass
 
 class AnyNumberInARow3dEnv(gym.Env):
     """
-    the extended implementation of Five in a Row (Any Number in a Row) environment in manner of OpenAI gym Five in a
-    Row is one of the most famous traditional board games in Japan. The rule of this game is simple.
+    the extended implementation of Five in a Row (Any Number in a Row) environment in manner of OpenAI gym Five
+    in a Row is one of the most famous traditional board games in Japan. The rule of this game is simple.
     1. Two players puts the Go pieces (black & white stones) alternately on an empty intersection
-    2. The winner is the first player to form an unbroken chain of five stones horizontally,
-    vertically, or diagonally We extended this game to in two ways.
+    2. The winner is the first player to form an unbroken chain of five stones horizontally, vertically,
+    or diagonally We extended this game to in two ways.
     First, we added another dimention to the board (2D to 3D).
     Second, we extended the required number for winning (five) to hyperparameter,
-    which means programmers can set that number at their will. So, we can call the
-    extended style game "Any Number in a Row"
+    which means programmers can set that number at their will.
+    So, we can call the extended style game "Any Number in a Row"
 
     This class gives "Any Number in a Row" environment following OpenAI Gym interface.
 
