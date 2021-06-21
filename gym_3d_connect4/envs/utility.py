@@ -198,7 +198,7 @@ class UtilClass:
         Parameters
         ----------
         org_plane : ndarray
-
+            An array containing the current state of the plane.
         Return
         ------
         is_end_on_2d_plane : bool
@@ -226,7 +226,7 @@ class UtilClass:
         Parameters
         ----------
         org_cube : ndarray
-
+            An array containing the current state of the cube.
 
         Return
         ------
