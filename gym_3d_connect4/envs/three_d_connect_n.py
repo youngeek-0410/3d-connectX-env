@@ -232,8 +232,8 @@ class Conv3dObsWrapper(gym.ObservationWrapper):
 
     Attribute
     ---------
-    observation_space :
-
+    observation_space : gym.space
+        Define an N x N x N discrete space with three values (-1, 0, 1).
     """
     def __init__(self, env):
         """
@@ -251,7 +251,8 @@ class Conv3dObsWrapper(gym.ObservationWrapper):
 
         Parameter
         ---------
-        obs :
+        obs : torch.Tensor
+            The observation agents get after the transition.
 
         Return
         ------

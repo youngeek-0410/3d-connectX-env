@@ -76,15 +76,15 @@ class UtilClass:
             The vertical coordinate specified by action.
         player_number : int
             The first player's number is 1, and the next is -1.
-        board :
-
+        board : list[list[list[int]]]
+            A three-dimensional array representing the current state.
 
         Returns
         -------
         reward : float
             The total reward agents get through the transition.
-        board :
-
+        board : list[list[list[int]]]
+            A three-dimensional array representing the current state.
         couldnt_locate : bool
             The flag that is true when it cannot be placed.
         """
@@ -113,8 +113,8 @@ class UtilClass:
             The flag of whether the episode has finished or not.
         player_number : int
             The first player's number is 1, and the next is -1.
-        board :
-
+        board : list[list[list[int]]]
+            A three-dimensional array representing the current state.
 
         Returns
         -------
@@ -275,8 +275,8 @@ class UtilClass:
         ----------
         player_number : int
             The first player's number is 1, and the next is -1.
-        board :
-
+        board : list[list[list[int]]]
+            A three-dimensional array representing the current state.
 
         Returns
         -------
