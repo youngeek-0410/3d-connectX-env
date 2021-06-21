@@ -83,16 +83,14 @@ class UtilClass:
         couldnt_locate : bool
 
         """
-        is_put = False
         couldnt_locate = False
         for height in range(self.num_grid):
             if board[height][wide][depth] == 0:  # 空いていたら置く
                 board[height][wide][depth] = player_number
                 reward = self.could_locate_reward
-                is_put = True
                 break
         # その柱(pile)が満杯で置けなかった場合。（height=0~self.num_grid-1 まで埋まっていた場合）
-        if not is_put:
+        else:
             reward = -self.couldnt_locate_penalty
             couldnt_locate = True
 
