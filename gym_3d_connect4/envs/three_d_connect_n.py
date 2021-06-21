@@ -160,7 +160,7 @@ class AnyNumberInARow3dEnv(gym.Env):
 
     def render(self, mode="print", isClear=False):
         """
-        The function to draw the current state according to mode.
+        The function to draw the observation result of one step according to mode.
 
         Parameters
         ----------
@@ -199,12 +199,12 @@ class AnyNumberInARow3dEnv(gym.Env):
     # 色が透明にならない問題あり
     def animation(self, obs_history):
         """
-        animation
+        The function to draw the result of one episode of observation.
 
         Parameter
         ---------
-        obs_history :
-
+        obs_history : array
+            An array containing the observations of one episode.
         """
         data = pd.DataFrame(index=[], columns=["W", "D", "H", "Player", "frame"])
         index = 0
@@ -239,15 +239,15 @@ class Conv3dObsWrapper(gym.ObservationWrapper):
         """
         Parameter
         ---------
-        env :
-
+        env : gym.Env
+            The gym environment.
         """
         super().__init__(env)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(1, self.num_grid, self.num_grid, self.num_grid))
 
     def observation(self, obs):
         """
-        observation
+        Returns a new tensor with a dimension of size one inserted at the specified position.
 
         Parameter
         ---------
@@ -256,6 +256,7 @@ class Conv3dObsWrapper(gym.ObservationWrapper):
 
         Return
         ------
-
+        obs : torch.Tensor
+            The observation agents get after the transition.
         """
         return torch.unsqueeze(obs, 0)
