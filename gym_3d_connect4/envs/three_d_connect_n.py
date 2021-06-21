@@ -40,23 +40,23 @@ class AnyNumberInARow3dEnv(gym.Env):
         Parameters
         ----------
         num_grid : int
-
+            length of a side.
         num_win_seq : int
-
-        win_reward : int
-
-        draw_penalty : int
-
-        lose_penalty : int
-
+            the number of sequence necessary for winning
+        win_reward : float
+            the reward agent gets when win the game
+        draw_penalty : float
+            the penalty agent gets when it draw the game
+        lose_penalty : float
+            the penalty agent gets when it lose the game
         could_locate_reward : float
-
+            the additional reward for agent being able to put the stone
         couldnt_locate_penalty : float
-
+            the penalty agent gets when it choose the location where the stone cannot be placed.
         time_penalty : float
-
+            the penalty agents gets along with timesteps
         first_player : int
-
+            Define which is the first player
         """
         super().__init__()
 
