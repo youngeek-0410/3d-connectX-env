@@ -9,20 +9,26 @@ class UtilClass:
 
     Attributes
     ----------
+    num_grid : int
+        Length of a side.
     num_win_seq : int
-        the number of sequence necessary for winning
+        The number of sequence necessary for winning.
     win_reward : float
-        the reward agent gets when win the game
+        The reward agent gets when win the game.
     draw_penalty : float
-        the penalty agent gets when it draw the game
+        The penalty agent gets when it draw the game.
     lose_penalty : float
-        the penalty agent gets when it lose the game
+        The penalty agent gets when it lose the game.
     could_locate_reward : float
-        the additional reward for agent being able to put the stone
+        The additional reward for agent being able to put the stone.
     couldnt_locate_penalty : float
-        the penalty agent gets when it choose the location where the stone cannot be placed.
+        The penalty agent gets when it choose the location where the stone cannot be placed.
     time_penalty : float
-        the penalty agents gets along with timesteps
+        The penalty agents gets along with timesteps.
+    WIN_A : ndarray
+        Player A's judgment constant.
+    WIN_B : ndarray
+        Player B's judgment constant.
     """
 
     def __init__(self, num_grid, num_win_seq, win_reward, draw_penalty, lose_penalty,
@@ -30,22 +36,22 @@ class UtilClass:
         """
         Parameters
         ----------
-        num_grid :
-
-        num_win_seq :
-
-        win_reward :
-
-        draw_penalty :
-
-        lose_penalty :
-
-        could_locate_reward :
-
-        couldnt_locate_penalty :
-
-        time_penalty :
-
+        num_grid : int
+            Length of a side.
+        num_win_seq : int
+            The number of sequence necessary for winning.
+        win_reward : float
+            The reward agent gets when win the game.
+        draw_penalty : float
+            The penalty agent gets when it draw the game.
+        lose_penalty : float
+            The penalty agent gets when it lose the game.
+        could_locate_reward : float
+            The additional reward for agent being able to put the stone.
+        couldnt_locate_penalty : float
+            The penalty agent gets when it choose the location where the stone cannot be placed.
+        time_penalty : float
+            The penalty agents gets along with timesteps.
         """
         self.num_grid = num_grid
         self.num_win_seq = num_win_seq
@@ -55,33 +61,34 @@ class UtilClass:
         self.could_locate_reward = could_locate_reward
         self.couldnt_locate_penalty = couldnt_locate_penalty
         self.time_penalty = time_penalty  # 未使用
-        # 判定用定数
         self.WIN_A = np.full(num_win_seq, 1)
         self.WIN_B = np.full(num_win_seq, -1)
 
     def resolve_placing(self, wide, depth, player_number, board):
         """
-        resolove_placing
+        Places a stone and returns the next state.
+        It also returns additional information (and an adjustment reward) based on whether
+        or not the user has selected a location where the stone can be placed.
 
         Parameters
         ----------
-        wide :
-
-        depth :
-
-        player_number :
-
-        board :
-
+        wide : int
+            The horizontal coordinates specified by action.
+        depth : int
+            The vertical coordinate specified by action.
+        player_number : int
+            The first player's number is 1, and the next is -1.
+        board : list[list[list[int]]]
+            A three-dimensional array representing the current state.
 
         Returns
         -------
-        reward :
-
-        board :
-
+        reward : float
+            The total reward agents get through the transition.
+        board : list[list[list[int]]]
+            A three-dimensional array representing the current state.
         couldnt_locate : bool
-
+            The flag that is true when it cannot be placed.
         """
         couldnt_locate = False
         for height in range(self.num_grid):
@@ -98,25 +105,25 @@ class UtilClass:
 
     def resolve_winning(self, done, player_number, board):
         """
-        resolove_winning
+        Return the reward and winner information based on the game result.
 
         Parameters
         ----------
         done : bool
-
+            The flag of whether the episode has finished or not.
         player_number : int
-
-        board :
-
+            The first player's number is 1, and the next is -1.
+        board : list[list[list[int]]]
+            A three-dimensional array representing the current state.
 
         Returns
         -------
         done : bool
-
-        reward :
-
+            The flag of whether the episode has finished or not.
+        reward : float
+            The total reward agents get through the transition.
         winner : int
-
+            The player number of the winning side.
         """
         reward = 0
         winner = 0
@@ -124,7 +131,6 @@ class UtilClass:
         if done:
             # どちらのプレーヤーが勝利したかにかかわらず、勝利報酬を設定。resolve_placing内で石を置くことによって得た報酬を引いておく。
             reward = self.win_reward - self.could_locate_reward
-            # 勝利プレーヤー
             winner = player_number
         # 全てのマスが非ゼロにもかかわらず、doneになっていない場合（引き分けの場合）
         elif not (0 in np.array(board).flatten()):
@@ -138,17 +144,17 @@ class UtilClass:
 
     def is_done(self, cube):
         """
-        is_done
+        Judges the end of the game based on the current state of the board.
 
         Parameters
         ----------
-        cube :
-
+        cube : list[list[list[int]]]
+            A three-dimensional array representing the current state.
 
         Return
         ------
-        is_done : bool
-
+        done : bool
+            The flag of whether the episode has finished or not.
         """
         cube = np.array(cube)
         num_stride = self.num_grid - self.num_win_seq + 1
@@ -183,19 +189,18 @@ class UtilClass:
 
         return False
 
-    # N×Nの2次元配列上でN個玉が並んでいるところがあるかを判定する関数。（ビンゴの判定みたいなもの）
     def is_end_on_2d_plane(self, org_plane):
         """
         Determine if there are N balls lined up in an N x N two-dimensional array.
 
         Parameters
         ----------
-        org_plane :
-
+        org_plane : ndarray
+            An array containing the current state of the plane.
         Return
         ------
         is_end_on_2d_plane : bool
-
+            The flag whether a row is aligned on a plane.
         """
         assert org_plane.shape == (self.num_win_seq, self.num_win_seq)
 
@@ -211,7 +216,6 @@ class UtilClass:
 
         return False
 
-    # N×N×Nの3次元配列上で、N個の玉が立体対角上に並んでいるかどうかを判定する関数。
     def is_diag_on_3d_cube(self, org_cube):
         """
         Determine whether or not N balls are lined up on the three-dimensional array of N x N x N
@@ -219,13 +223,13 @@ class UtilClass:
 
         Parameters
         ----------
-        org_cube :
-
+        org_cube : ndarray
+            An array containing the current state of the cube.
 
         Return
         ------
         is_diag_on_3d_cube : bool
-
+            The flag whether a row is aligned on a 3D object.
         """
         assert org_cube.shape == (self.num_win_seq, self.num_win_seq, self.num_win_seq)
 
@@ -245,22 +249,21 @@ class UtilClass:
 
         return False
 
-    # 入力をbaseで指定した進数に変換。返り値が文字列になっていることに注意。
     def base_change(self, value, base):
         """
         Convert the input to the decimal number specified by base.
 
         Parameters
         ----------
-        value :
-
-        base :
-
+        value : int
+            The action expressed as a number between 1 ~ self.num_grid ** 2.
+        base : int
+            Specifies the decimal value to be converted.
 
         Return
         ------
         base_change : str
-
+            A string that converts the input to the decimal number specified by base.
         """
         if value // base:
             return self.base_change(value // base, base) + str(value % base)
@@ -268,21 +271,24 @@ class UtilClass:
 
     def is_game_end(self, player_number, board):
         """
+        Judges the end of the game based on the current state of the board,
+        and returns the reward and winner information according to the result of the game.
+
         Parameters
         ----------
-        player_number :
-
-        board :
-
+        player_number : int
+            The first player's number is 1, and the next is -1.
+        board : list[list[list[int]]]
+            A three-dimensional array representing the current state.
 
         Returns
         -------
-        is_end :
-
-        reward :
-
-        winner :
-
+        is_end : bool
+            The flag of whether the episode has finished or not.
+        reward : float
+            The total reward agents get through the transition.
+        winner : int
+            The player number of the winning side.
         """
         done = self.is_done(board)
         is_end, reward, winner = self.resolve_winning(done, player_number, board)

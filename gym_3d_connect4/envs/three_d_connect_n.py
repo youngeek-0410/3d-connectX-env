@@ -8,30 +8,30 @@ from gym_3d_connect4.envs.utility import UtilClass
 
 class AnyNumberInARow3dEnv(gym.Env):
     """
-    the extended implementation of Five in a Row (Any Number in a Row) environment in manner of OpenAI gym Five in a
-    Row is one of the most famous traditional board games in Japan. The rule of this game is simple.
+    the extended implementation of Five in a Row (Any Number in a Row) environment in manner of OpenAI gym Five
+    in a Row is one of the most famous traditional board games in Japan. The rule of this game is simple.
     1. Two players puts the Go pieces (black & white stones) alternately on an empty intersection
-    2. The winner is the first player to form an unbroken chain of five stones horizontally,
-    vertically, or diagonally We extended this game to in two ways.
+    2. The winner is the first player to form an unbroken chain of five stones horizontally, vertically,
+    or diagonally We extended this game to in two ways.
     First, we added another dimention to the board (2D to 3D).
     Second, we extended the required number for winning (five) to hyperparameter,
-    which means programmers can set that number at their will. So, we can call the
-    extended style game "Any Number in a Row"
+    which means programmers can set that number at their will.
+    So, we can call the extended style game "Any Number in a Row"
 
     This class gives "Any Number in a Row" environment following OpenAI Gym interface.
 
     Attributes
     ----------
     num_grid : int
-        the number of intersections in a board
+        The number of intersections in a board.
     action_space : gym.spaces
-
+        Define an NxN discrete action space.
     observation_space : gym.spaces
-
+        Define an N x N x N discrete space with three values (-1, 0, 1).
     player : int
-
+        Define which is the first player.
     utils : UtilClass
-
+        Utility class implemented in utility.py.
     """
 
     def __init__(self, num_grid=4, num_win_seq=4, win_reward=10, draw_penalty=5, lose_penalty=10,
@@ -40,38 +40,36 @@ class AnyNumberInARow3dEnv(gym.Env):
         Parameters
         ----------
         num_grid : int
-
+            Length of a side.
         num_win_seq : int
-
-        win_reward : int
-
-        draw_penalty : int
-
-        lose_penalty : int
-
+            The number of sequence necessary for winning.
+        win_reward : float
+            The reward agent gets when win the game.
+        draw_penalty : float
+            The penalty agent gets when it draw the game.
+        lose_penalty : float
+            The penalty agent gets when it lose the game.
         could_locate_reward : float
-
+            The additional reward for agent being able to put the stone.
         couldnt_locate_penalty : float
-
+            The penalty agent gets when it choose the location where the stone cannot be placed.
         time_penalty : float
-
+            The penalty agents gets along with timesteps.
         first_player : int
-
+            Define which is the first player.
         """
         super().__init__()
 
         self.num_grid = num_grid
 
-        # 行動空間(action)を定義。今回は重力がある設定（高さ方向は石を置く位置を指定できない）ので、N×Nの離散空間。
+        # 重力がある設定（高さ方向は石を置く位置を指定できない）ので、N×Nの離散空間。
         self.action_space = gym.spaces.Discrete(self.num_grid * self.num_grid)
-        # 観測空間(state)を定義。今回は自分の色の石が置かれている状態、石の置かれていない状態、相手プレイヤーの石が置かれている状態の3つをそれぞれ-1,0,1の値で表す。
-        # 従って、-1, 0, 1の3値をとるN×N×Nの離散空間。
+        # 自分の色の石が置かれている状態、石の置かれていない状態、相手プレイヤーの石が置かれている状態の3つをそれぞれ-1,0,1の値で表す。
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(self.num_grid, self.num_grid, self.num_grid))
 
-        # 最初のプレーヤーがどちらかを定義
         self.player = first_player
 
-        # 上記で実装したユーティリティクラスの委譲。（継承すると必要以上に依存してしまうため、避けた）
+        # 継承すると必要以上に依存してしまうため、避けている。
         self.utils = UtilClass(
             num_grid=num_grid,
             num_win_seq=num_win_seq,
@@ -88,14 +86,12 @@ class AnyNumberInARow3dEnv(gym.Env):
 
     def reset(self):
         """
-        reset the board
-
         Reset the board to the initial state.
 
         Returns
         -------
         reset : torch.Tensor
-            the initial board tensor filled with 0 (0 means empty, 1 or -1 means the stone is put)
+            The initial board tensor filled with 0 (0 means empty, 1 or -1 means the stone is put).
         """
         self.board = [[[0] * self.num_grid for _ in range(self.num_grid)] for _ in range(self.num_grid)]
         return torch.tensor(self.board).float()
@@ -109,18 +105,18 @@ class AnyNumberInARow3dEnv(gym.Env):
         Parameter
         ---------
         action : int
-            elected aciton number (range from 0 to self.num_grid**2)
+            Elected aciton number (range from 0 to self.num_grid**2).
 
         Returns
         -------
         obs : torch.Tensor
-            the observation agents get after the transition
+            The observation agents get after the transition.
         reward : float
-            the total reward agents get through the transition
+            The total reward agents get through the transition.
         done : bool
-            the flag of whether the episode has finished or not
+            The flag of whether the episode has finished or not.
         info : dict
-            a dictionary containing the following information
+            A dictionary containing the following information.
         """
         # 1~self.num_grid**2 の数値で表される action を、「升目のどの位置か」と言う情報に変換
         action = self.utils.base_change(action, self.num_grid).zfill(2)
@@ -162,14 +158,14 @@ class AnyNumberInARow3dEnv(gym.Env):
 
     def render(self, mode="print"):
         """
-        render
+        The function to draw the observation result of one step according to mode.
 
         Parameters
         ----------
         mode : str
-
+            The flag to determine the content to be drawn.
         isClear : bool
-
+            The flag to clear the output.
         """
 
         if mode == "print":
@@ -199,12 +195,12 @@ class AnyNumberInARow3dEnv(gym.Env):
     # 色が透明にならない問題あり
     def animation(self, obs_history):
         """
-        animation
+        The function to draw the result of one episode of observation.
 
         Parameter
         ---------
-        obs_history :
-
+        obs_history : array
+            An array containing the observations of one episode.
         """
         data = pd.DataFrame(index=[], columns=["W", "D", "H", "Player", "frame"])
         index = 0
@@ -228,33 +224,35 @@ class AnyNumberInARow3dEnv(gym.Env):
 
 class Conv3dObsWrapper(gym.ObservationWrapper):
     """
-    Conv3dObsWrapper
+    Define the wrapper class when using Conv3d.
 
     Attribute
     ---------
-    observation_space :
-
+    observation_space : gym.space
+        Define an N x N x N discrete space with three values (-1, 0, 1).
     """
     def __init__(self, env):
         """
         Parameter
         ---------
-        env :
-
+        env : gym.Env
+            The gym environment.
         """
         super().__init__(env)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(1, self.num_grid, self.num_grid, self.num_grid))
 
     def observation(self, obs):
         """
-        observation
+        Returns a new tensor with a dimension of size one inserted at the specified position.
 
         Parameter
         ---------
-        obs :
+        obs : torch.Tensor
+            The observation agents get after the transition.
 
         Return
         ------
-
+        obs : torch.Tensor
+            The observation agents get after the transition.
         """
         return torch.unsqueeze(obs, 0)
