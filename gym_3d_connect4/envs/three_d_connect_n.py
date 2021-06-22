@@ -160,7 +160,7 @@ class AnyNumberInARow3dEnv(gym.Env):
 
         return torch.tensor(self.board).float(), reward + fixment_reward, done, info
 
-    def render(self, mode="print", isClear=False):
+    def render(self, mode="print"):
         """
         render
 
@@ -171,8 +171,6 @@ class AnyNumberInARow3dEnv(gym.Env):
         isClear : bool
 
         """
-        if isClear:
-            output.clear()  # 出力の消去
 
         if mode == "print":
             i = 0
