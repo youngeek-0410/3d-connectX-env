@@ -32,6 +32,10 @@ class TestCombination(unittest.TestCase):
             }
         ]
 
+    @classmethod
+    def tearDownClass(cls):
+        print("Your environment has passed the test!!!!")
+
     def setUp(self):
         for pattern in self.pattern:
             self.answer_dict = pattern
@@ -45,10 +49,6 @@ class TestCombination(unittest.TestCase):
             self.env.utils.couldnt_locate_penalty = 10
             self.env.utils.time_penalty = 1
             self.env.player = 1
-
-    @classmethod
-    def tearDownClass(cls):
-        print("Your environment has passed the test!!!!")
 
     def test_pattern(self):
         for idx, action in enumerate(self.answer_dict["actions"]):
