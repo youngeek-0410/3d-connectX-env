@@ -46,7 +46,8 @@ class TestCombination(unittest.TestCase):
             self.env.utils.time_penalty = 1
             self.env.player = 1
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
         print("Your environment has passed the test!!!!")
 
     def test_pattern(self):
