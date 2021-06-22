@@ -36,20 +36,19 @@ class TestCombination(unittest.TestCase):
 
     def test_pattern(self):
         for pattern in self.pattern:
-            self.env = AnyNumberInARow3dEnv(num_grid=pattern["num_grid"], num_win_seq=pattern["num_win_seq"])
-            self.env.reset()
-            # 各種報酬・罰の設定。（テスト用なので値はわかりやすくしてある　）
-            self.env.utils.win_reward = 100
-            self.env.utils.draw_penalty = 50
-            self.env.utils.lose_penalty = 100
-            self.env.utils.could_locate_reward = 10
-            self.env.utils.couldnt_locate_penalty = 10
-            self.env.utils.time_penalty = 1
-            # （のちの解説を分かりやすくするため、）初期プレーヤーは1固定
-            self.env.player = 1
+            env = AnyNumberInARow3dEnv(num_grid=pattern["num_grid"], num_win_seq=pattern["num_win_seq"])
+            env.reset()
+
+            env.utils.win_reward = 100
+            env.utils.draw_penalty = 50
+            env.utils.lose_penalty = 100
+            env.utils.could_locate_reward = 10
+            env.utils.couldnt_locate_penalty = 10
+            env.utils.time_penalty = 1
+            env.player = 1
 
             for idx, action in enumerate(pattern["actions"]):
-                obs, reward, done, info = self.env.step(action)
+                obs, reward, done, info = env.step(action)
 
                 self.assertEqual(pattern["rewards"][idx], reward)
                 self.assertEqual(pattern["dones"][idx], done)
