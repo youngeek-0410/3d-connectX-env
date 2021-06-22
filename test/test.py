@@ -50,6 +50,17 @@ class TestCombination(unittest.TestCase):
     def tearDownClass(cls):
         print("Your environment has passed the test!!!!")
 
+    def test_pattern(self):
+        for env, answer_dict in zip(self.envs, self.pattern):
+            for idx, action in enumerate(answer_dict["actions"]):
+                obs, reward, done, info = env.step(action)
+
+                self.assertEqual(answer_dict["rewards"][idx], reward)
+                self.assertEqual(answer_dict["dones"][idx], done)
+                self.assertEqual(answer_dict["players"][idx], info["turn"])
+                self.assertEqual(answer_dict["winners"][idx], info["winner"])
+                self.assertEqual(answer_dict["couldnt_locates"][idx], info["is_couldnt_locate"])
+
 
 if __name__ == '__main__':
     unittest.main()
