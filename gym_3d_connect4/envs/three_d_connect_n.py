@@ -164,8 +164,6 @@ class AnyNumberInARow3dEnv(gym.Env):
         ----------
         mode : str
             The flag to determine the content to be drawn.
-        isClear : bool
-            The flag to clear the output.
         """
 
         if mode == "print":
