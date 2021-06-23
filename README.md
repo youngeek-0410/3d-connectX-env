@@ -82,4 +82,3 @@ Info about the rewards and info returned by the `step` method.
 | `turn`             | `int`    | The number of the player at this step
 | `winner`           | `int`    | Value of the player on the winning side
 | `is_couldnt_locate`| `bool`   | In this step the player chooses where to place the stone.
-
