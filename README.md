@@ -50,3 +50,11 @@ for action in actions:
     env.render(mode="plot")
 
 ```
+
+## Environments
+
+The environments only send reward-able game-play frames to agents; 
+No cut-scenes, loading screens, etc. are sent to 
+an agent nor can an agent perform actions during these instances.
+
+Environment: `3d-connect4-v0`
