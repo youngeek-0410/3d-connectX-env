@@ -27,3 +27,26 @@ The preferred installation of `3d-connect4-gym` is from `pip`:
 pip install 3d-connect4-gym
 ```
 
+## Usage
+
+### Python
+
+```python
+from gym_3d_connect4.envs import AnyNumberInARow3dEnv
+env = AnyNumberInARow3dEnv()
+env.reset()
+
+env.utils.win_reward = 100
+env.utils.draw_penalty = 50
+env.utils.lose_penalty = 100
+env.utils.could_locate_reward = 10
+env.utils.couldnt_locate_penalty = 10
+env.utils.time_penalty = 1
+env.player = 1
+actions = [0, 0, 1, 1, 2, 2, 4, 4, 0, 0, 1, 1, 2, 2, 0, 3]
+
+for action in actions:
+    obs, reward, done, info = env.step(action)
+    env.render(mode="plot")
+
+```
