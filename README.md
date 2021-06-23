@@ -58,3 +58,28 @@ No cut-scenes, loading screens, etc. are sent to
 an agent nor can an agent perform actions during these instances.
 
 Environment: `3d-connect4-v0`
+
+### Factor at initialization.
+
+| Key                     | Type     | Description
+|:------------------------|:---------|:------------------------------------------------------|
+| `num_grid   `           | `int`    | Length of a side.
+| `num_win_seq`           | `int`    | The number of sequence necessary for winning.
+| `win_reward`            | `float`  | The reward agent gets when win the game.
+| `draw_penalty`          | `float`  | The penalty agent gets when it draw the game.
+| `lose_penalty`          | `float`  | The penalty agent gets when it lose the game.
+| `couldnt_locate_penalty`| `float`  | The penalty agent gets when it choose the location where the stone cannot be placed.
+| `could_locate_reward`   | `float`  | The additional reward for agent being able to put the stone.
+| `time_penalty`          | `float`  | The penalty agents gets along with timesteps.
+| `first_player`          | `int`    | Define which is the first player.
+
+## Step
+
+Info about the rewards and info returned by the `step` method.
+
+| Key                | Type     | Description
+|:-------------------|:---------|:------------------------------------------------------|
+| `turn`             | `int`    | The number of the player at this step
+| `winner`           | `int`    | Value of the player on the winning side
+| `is_couldnt_locate`| `bool`   | In this step the player chooses where to place the stone.
+
