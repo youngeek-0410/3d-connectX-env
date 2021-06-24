@@ -1,3 +1,4 @@
+import copy
 import gym
 import torch
 import pandas as pd
@@ -24,6 +25,12 @@ class AnyNumberInARow3dEnv(gym.Env):
     ----------
     num_grid : int
         The number of intersections in a board.
+    step_number : int
+        The number of current turns.
+    obs_history : list[list[list[list[int]]]]
+        An array containing the observations of one episode.
+    board : list[list[list[int]]]
+        A three-dimensional array representing the current state.
     action_space : gym.spaces
         Define an NxN discrete action space.
     observation_space : gym.spaces
@@ -61,6 +68,9 @@ class AnyNumberInARow3dEnv(gym.Env):
         super().__init__()
 
         self.num_grid = num_grid
+        self.step_number = 0
+        self.obs_history = []
+        self.board = []
 
         # 重力がある設定（高さ方向は石を置く位置を指定できない）ので、N×Nの離散空間。
         self.action_space = gym.spaces.Discrete(self.num_grid * self.num_grid)
@@ -94,6 +104,7 @@ class AnyNumberInARow3dEnv(gym.Env):
             The initial board tensor filled with 0 (0 means empty, 1 or -1 means the stone is put).
         """
         self.step_number = 0
+        self.obs_history = []
         self.board = [[[0] * self.num_grid for _ in range(self.num_grid)] for _ in range(self.num_grid)]
         return torch.tensor(self.board).float()
 
@@ -188,11 +199,6 @@ class AnyNumberInARow3dEnv(gym.Env):
     def animation(self, obs_history):
         """
         The function to draw the result of one episode of observation.
-
-        Parameter
-        ---------
-        obs_history : array
-            An array containing the observations of one episode.
         """
         data = pd.DataFrame(index=[], columns=["W", "D", "H", "Player", "frame"])
         index = 0
