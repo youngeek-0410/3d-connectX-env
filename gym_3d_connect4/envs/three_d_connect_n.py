@@ -126,13 +126,6 @@ class AnyNumberInARow3dEnv(gym.Env):
         W = int(action[0])
         D = int(action[1])
 
-        # 各種変数の初期化
-        reward = 0
-        fixment_reward = 0
-        winner = 0
-        done = False
-        is_couldnt_locate = False
-
         # 石の配置のダイナミクスを司る部分。石を配置し、次状態を返す。また、石を置ける場所を選択したかどうかに基づいて、追加情報（及び調整報酬）を返す。
         fixment_reward, self.board, is_couldnt_locate = self.utils.resolve_placing(
             wide=W,
