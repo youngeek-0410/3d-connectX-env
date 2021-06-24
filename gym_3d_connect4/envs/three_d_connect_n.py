@@ -93,6 +93,7 @@ class AnyNumberInARow3dEnv(gym.Env):
         reset : torch.Tensor
             The initial board tensor filled with 0 (0 means empty, 1 or -1 means the stone is put).
         """
+        self.step_number = 0
         self.board = [[[0] * self.num_grid for _ in range(self.num_grid)] for _ in range(self.num_grid)]
         return torch.tensor(self.board).float()
 
@@ -162,12 +163,10 @@ class AnyNumberInARow3dEnv(gym.Env):
         """
 
         if mode == "print":
-            i = 0
-            for square in self.board:
-                print("{}F".format(i))
+            for i, square in enumerate(self.board):
+                print(f"{i}F")
                 for line in square:
                     print(line)
-                i += 1
 
         elif mode == "plot":
             data = pd.DataFrame(index=[], columns=["W", "D", "H", "Player"])
