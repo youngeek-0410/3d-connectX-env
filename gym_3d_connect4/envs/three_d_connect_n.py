@@ -157,13 +157,13 @@ class AnyNumberInARow3dEnv(gym.Env):
 
         # プレーヤーの交代(置けない場所に置いていた場合は、プレーヤーは交代しない)
         if not is_couldnt_locate:
-            self.player *= -1
+            # 両方のプレイヤーが一度置いてから格納する.(プレイヤーが表示されないバグが発生するため)
+            if self.step_number > 0:
+                # 参照渡しだと格納したデータが更新されてしまうため, アドレスを変更させる.
+                self.obs_history.append(copy.deepcopy(self.board))
+            self.step_number += 1
 
-        # 両方のプレイヤーが一度置いてから格納する.(プレイヤーが表示されないバグが発生するため)
-        if self.step_number > 1:
-            # 参照渡しだと格納したデータが更新されてしまうため, アドレスを変更させる.
-            self.obs_history.append(copy.deepcopy(self.board))
-        self.step_number += 1
+            self.player *= -1
 
         return torch.tensor(self.board).float(), reward + fixment_reward, done, info
 
@@ -201,19 +201,17 @@ class AnyNumberInARow3dEnv(gym.Env):
                                 opacity=0.95, width=854, height=480)
             fig.show()
 
-    # 色が透明にならない問題あり
-    def animation(self, obs_history):
+    def animation(self):
         """
         The function to draw the result of one episode of observation.
         """
         data = pd.DataFrame(index=[], columns=["W", "D", "H", "Player", "frame"])
         index = 0
-        dict_int_player = {0: "no one", 1: "A", -1: "B"}
-        for frame in range(len(obs_history)):
+        for frame, obs_history in enumerate(self.obs_history):
             for i in range(self.num_grid):
                 for j in range(self.num_grid):
                     for k in range(self.num_grid):
-                        data.loc[index] = ([j, k, i, obs_history[frame][i][j][k], frame])
+                        data.loc[index] = ([j, k, i, obs_history[i][j][k], frame])
                         index += 1
 
         range_list = [-0.4, self.num_grid - 0.6]
