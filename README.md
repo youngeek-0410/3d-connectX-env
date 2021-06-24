@@ -7,6 +7,8 @@
 [![Format][pypi-format]][pypi-home]
 [![License][pypi-license]](LICENSE)
 
+![pattern1.gif](assets/pattern1.gif)
+
 [build-status]: https://travis-ci.org/youngeek-0410/3d-connectX-env.svg?branch=master
 [ci-server]: https://travis-ci.org/youngeek-0410/3d-connectX-env
 [pypi-version]: https://badge.fury.io/py/3d-connectX-env.svg
