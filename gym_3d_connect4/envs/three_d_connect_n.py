@@ -159,6 +159,12 @@ class AnyNumberInARow3dEnv(gym.Env):
         if not is_couldnt_locate:
             self.player *= -1
 
+        # 両方のプレイヤーが一度置いてから格納する.(プレイヤーが表示されないバグが発生するため)
+        if self.step_number > 1:
+            # 参照渡しだと格納したデータが更新されてしまうため, アドレスを変更させる.
+            self.obs_history.append(copy.deepcopy(self.board))
+        self.step_number += 1
+
         return torch.tensor(self.board).float(), reward + fixment_reward, done, info
 
     def render(self, mode="print"):
