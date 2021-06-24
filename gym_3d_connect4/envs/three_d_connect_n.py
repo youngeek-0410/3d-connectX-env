@@ -1,3 +1,4 @@
+import copy
 import gym
 import torch
 import pandas as pd
@@ -24,6 +25,12 @@ class AnyNumberInARow3dEnv(gym.Env):
     ----------
     num_grid : int
         The number of intersections in a board.
+    step_number : int
+        The number of current turns.
+    obs_history : list[list[list[list[int]]]]
+        An array containing the observations of one episode.
+    board : list[list[list[int]]]
+        A three-dimensional array representing the current state.
     action_space : gym.spaces
         Define an NxN discrete action space.
     observation_space : gym.spaces
@@ -61,6 +68,9 @@ class AnyNumberInARow3dEnv(gym.Env):
         super().__init__()
 
         self.num_grid = num_grid
+        self.step_number = 0
+        self.obs_history = []
+        self.board = []
 
         # 重力がある設定（高さ方向は石を置く位置を指定できない）ので、N×Nの離散空間。
         self.action_space = gym.spaces.Discrete(self.num_grid * self.num_grid)
@@ -93,6 +103,8 @@ class AnyNumberInARow3dEnv(gym.Env):
         reset : torch.Tensor
             The initial board tensor filled with 0 (0 means empty, 1 or -1 means the stone is put).
         """
+        self.step_number = 0
+        self.obs_history = []
         self.board = [[[0] * self.num_grid for _ in range(self.num_grid)] for _ in range(self.num_grid)]
         return torch.tensor(self.board).float()
 
@@ -126,13 +138,6 @@ class AnyNumberInARow3dEnv(gym.Env):
         W = int(action[0])
         D = int(action[1])
 
-        # 各種変数の初期化
-        reward = 0
-        fixment_reward = 0
-        winner = 0
-        done = False
-        is_couldnt_locate = False
-
         # 石の配置のダイナミクスを司る部分。石を配置し、次状態を返す。また、石を置ける場所を選択したかどうかに基づいて、追加情報（及び調整報酬）を返す。
         fixment_reward, self.board, is_couldnt_locate = self.utils.resolve_placing(
             wide=W,
@@ -152,6 +157,12 @@ class AnyNumberInARow3dEnv(gym.Env):
 
         # プレーヤーの交代(置けない場所に置いていた場合は、プレーヤーは交代しない)
         if not is_couldnt_locate:
+            # 両方のプレイヤーが一度置いてから格納する.(プレイヤーが表示されないバグが発生するため)
+            if self.step_number > 0:
+                # 参照渡しだと格納したデータが更新されてしまうため, アドレスを変更させる.
+                self.obs_history.append(copy.deepcopy(self.board))
+            self.step_number += 1
+
             self.player *= -1
 
         return torch.tensor(self.board).float(), reward + fixment_reward, done, info
@@ -167,12 +178,10 @@ class AnyNumberInARow3dEnv(gym.Env):
         """
 
         if mode == "print":
-            i = 0
-            for square in self.board:
-                print("{}F".format(i))
+            for i, square in enumerate(self.board):
+                print(f"{i}F")
                 for line in square:
                     print(line)
-                i += 1
 
         elif mode == "plot":
             data = pd.DataFrame(index=[], columns=["W", "D", "H", "Player"])
@@ -190,24 +199,17 @@ class AnyNumberInARow3dEnv(gym.Env):
                                 opacity=0.95, width=854, height=480)
             fig.show()
 
-    # 色が透明にならない問題あり
-    def animation(self, obs_history):
+    def animation(self):
         """
         The function to draw the result of one episode of observation.
-
-        Parameter
-        ---------
-        obs_history : array
-            An array containing the observations of one episode.
         """
         data = pd.DataFrame(index=[], columns=["W", "D", "H", "Player", "frame"])
         index = 0
-        dict_int_player = {0: "no one", 1: "A", -1: "B"}
-        for frame in range(len(obs_history)):
+        for frame, obs_history in enumerate(self.obs_history):
             for i in range(self.num_grid):
                 for j in range(self.num_grid):
                     for k in range(self.num_grid):
-                        data.loc[index] = ([j, k, i, obs_history[frame][i][j][k], frame])
+                        data.loc[index] = ([j, k, i, obs_history[i][j][k], frame])
                         index += 1
 
         range_list = [-0.4, self.num_grid - 0.6]
