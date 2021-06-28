@@ -24,7 +24,7 @@ def main():
         license='',
         author='Ryusei Ito',
         author_email='31807@toyota.kosen-ac.jp',
-        packages=['gym_3d_connect4'],
+        packages=['gym_3d_connectX'],
         install_requires=read_requirements(),
         python_requires='>=3.6, <3.9',
     )

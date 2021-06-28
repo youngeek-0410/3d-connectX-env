@@ -34,7 +34,8 @@ pip install 3d-connect4-gym
 ### Python
 
 ```python
-from gym_3d_connect4.envs import AnyNumberInARow3dEnv
+from gym_3d_connectX.envs import AnyNumberInARow3dEnv
+
 env = AnyNumberInARow3dEnv()
 env.reset()
 

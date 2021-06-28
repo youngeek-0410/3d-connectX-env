@@ -1,6 +1,6 @@
 import unittest
 
-from gym_3d_connect4.envs import AnyNumberInARow3dEnv
+from gym_3d_connectX.envs import AnyNumberInARow3dEnv
 
 
 class TestCombination(unittest.TestCase):
