@@ -15,12 +15,12 @@ def main():
         readme = fp.read()
 
     setuptools.setup(
-        name='3d-connect4-gym',
+        name='3d-connectX-env',
         version='1.0.0',
-        description='3D Connect4 for OpenAI Gym.',
+        description='3D ConnectX for OpenAI Gym.',
         long_description=readme,
         long_description_content_type='text/markdown',
-        url='https://github.com/youngeek-0410/3d-connect4-gym',
+        url='https://github.com/youngeek-0410/3d-connectX-env',
         license='',
         author='Ryusei Ito',
         author_email='31807@toyota.kosen-ac.jp',
