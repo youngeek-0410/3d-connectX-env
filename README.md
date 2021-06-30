@@ -19,14 +19,14 @@
 [python-version]: https://img.shields.io/pypi/pyversions/3d-connectX-env.svg
 [python-home]: https://python.org
 
-3D connect4 repository, developed for the [OpenAI Gym](https://github.com/openai/gym) format.
+3D connectX repository, developed for the [OpenAI Gym](https://github.com/openai/gym) format.
 
 ## Installation
 
-The preferred installation of `3d-connect4-gym` is from `pip`:
+The preferred installation of `3d-connectX-env` is from `pip`:
 
 ```shell
-pip install 3d-connect4-gym
+pip install 3d-connectX-env
 ```
 
 ## Usage
@@ -34,7 +34,8 @@ pip install 3d-connect4-gym
 ### Python
 
 ```python
-from gym_3d_connect4.envs import AnyNumberInARow3dEnv
+from gym_3d_connectX.envs import AnyNumberInARow3dEnv
+
 env = AnyNumberInARow3dEnv()
 env.reset()
 
@@ -59,7 +60,7 @@ The environments only send reward-able game-play frames to agents;
 No cut-scenes, loading screens, etc. are sent to 
 an agent nor can an agent perform actions during these instances.
 
-Environment: `3d-connect4-v0`
+Environment: `3d-connectX-v0`
 
 ### Factor at initialization.
 

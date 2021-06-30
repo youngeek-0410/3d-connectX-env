@@ -4,7 +4,7 @@ import torch
 import pandas as pd
 import plotly.express as px
 
-from gym_3d_connect4.envs.utility import UtilClass
+from gym_3d_connectX.envs.utility import UtilClass
 
 
 class AnyNumberInARow3dEnv(gym.Env):
