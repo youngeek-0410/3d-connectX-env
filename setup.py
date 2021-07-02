@@ -26,7 +26,7 @@ def main():
         author_email='31807@toyota.kosen-ac.jp',
         packages=['gym_3d_connectX'],
         install_requires=read_requirements(),
-        python_requires='>=3.6, <3.9',
+        python_requires='>=3.7, <3.9',
     )
 
 
