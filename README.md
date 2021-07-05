@@ -1,18 +1,17 @@
-# 3d-connect4-gym
+# 3d-connectX-env
 
 [![BuildStatus][build-status]][ci-server]
 [![PackageVersion][pypi-version]][pypi-home]
-[![PythonVersion][python-version]][python-home]
 [![Stable][pypi-status]][pypi-home]
 [![Format][pypi-format]][pypi-home]
 [![License][pypi-license]](LICENSE)
 
 ![pattern1.gif](assets/pattern1.gif)
 
-[build-status]: https://travis-ci.org/youngeek-0410/3d-connectX-env.svg?branch=master
+[build-status]: https://travis-ci.com/youngeek-0410/3d-connectX-env.svg?branch=main
 [ci-server]: https://travis-ci.org/youngeek-0410/3d-connectX-env
 [pypi-version]: https://badge.fury.io/py/3d-connectX-env.svg
-[pypi-license]: https://img.shields.io/pypi/l/3d-connectX-env.svg
+[pypi-license]: https://img.shields.io/github/license/youngeek-0410/3d-connectX-env
 [pypi-status]: https://img.shields.io/pypi/status/3d-connectX-env.svg
 [pypi-format]: https://img.shields.io/pypi/format/3d-connectX-env.svg
 [pypi-home]: https://badge.fury.io/py/3d-connectX-env
@@ -34,9 +33,10 @@ pip install 3d-connectX-env
 ### Python
 
 ```python
-from gym_3d_connectX.envs import AnyNumberInARow3dEnv
+import gym_3d_connectX
+import gym
 
-env = AnyNumberInARow3dEnv()
+env = gym.make('3d-connectX-v0')
 env.reset()
 
 env.utils.win_reward = 100
