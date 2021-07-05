@@ -16,7 +16,7 @@ def main():
 
     setuptools.setup(
         name='3d-connectX-env',
-        version='1.0.0',
+        version='1.0.1',
         description='3D ConnectX for OpenAI Gym.',
         long_description=readme,
         long_description_content_type='text/markdown',
@@ -26,7 +26,7 @@ def main():
         author_email='31807@toyota.kosen-ac.jp',
         packages=['gym_3d_connectX'],
         install_requires=read_requirements(),
-        python_requires='>=3.7, <3.9',
+        python_requires='>=3.7',
     )
 
 
