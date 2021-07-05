@@ -9,7 +9,7 @@
 ![pattern1.gif](assets/pattern1.gif)
 
 [build-status]: https://travis-ci.com/youngeek-0410/3d-connectX-env.svg?branch=main
-[ci-server]: https://travis-ci.org/youngeek-0410/3d-connectX-env
+[ci-server]: https://travis-ci.com/youngeek-0410/3d-connectX-env
 [pypi-version]: https://badge.fury.io/py/3d-connectX-env.svg
 [pypi-license]: https://img.shields.io/github/license/youngeek-0410/3d-connectX-env
 [pypi-status]: https://img.shields.io/pypi/status/3d-connectX-env.svg
