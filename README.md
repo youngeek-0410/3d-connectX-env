@@ -2,7 +2,6 @@
 
 [![BuildStatus][build-status]][ci-server]
 [![PackageVersion][pypi-version]][pypi-home]
-[![Stable][pypi-status]][pypi-home]
 [![Format][pypi-format]][pypi-home]
 [![License][pypi-license]](LICENSE)
 
